@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 body {
-  background-color: #e3140d75;
+  background-color: #000;
   font-family: "Space Mono", monospace;
   color: #333;
 }
@@ -64,12 +64,12 @@ body {
 }
 
 .episode-card:hover {
-  box-shadow: #042b7ec4 20px 20px;
+  box-shadow: #cbd3d4c4 20px 20px;
   transform: translate(-10px, -10px);
 }
 
 .image-wrapper:hover {
-  box-shadow: #042b7ec4 20px 20px;
+  box-shadow: #7e7e7ec4 20px 20px 20px;
   filter: grayscale(0%);
   transform: translate(-10px, -10px);
 }
