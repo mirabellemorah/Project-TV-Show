@@ -1,3 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 #root {
-  color: red;
+  font-family: "Space Mono", monospace;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.episode-card {
+  width: 400px;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 20px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  margin: 15px 15px 25px 15px;
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: #000000 0px 15px;
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.9s;
+  overflow: hidden;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 40%;
+  overflow: hidden;
+  border-bottom: 3px solid rgb(0, 0, 0);
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.9s;
+}
+
+.episode-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details-wrapper {
+  margin: 20px 12px;
+}
+
+.episode-title {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.episode-season,
+.episode-number {
+  margin: 4px 0;
+}
+.episode-summary {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.episode-card:hover {
+  box-shadow: #042b7ec4 20px 20px;
+  transform: translate(-10px, -10px);
+}
+
+.image-wrapper:hover {
+  box-shadow: #042b7ec4 20px 20px;
+  transform: translate(-10px, -10px);
 }
