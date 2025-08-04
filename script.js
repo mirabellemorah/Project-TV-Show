@@ -52,17 +52,27 @@ function makePageForEpisodes(episode) {
   const template = document.querySelector("template");
   const episodeCard = template.content.cloneNode(true);
 
+  //the below code is to set the episode name
+
   episodeCard.querySelector(".episode-title").textContent = episode.name;
+
+  //the below code is to set the episode code like S02E07
 
   const paddedSeason = String(episode.season).padStart(2, "0");
   const paddedEpisode = String(episode.number).padStart(2, "0");
   const episodeCode = `S${paddedSeason}E${paddedEpisode}`;
 
-  episodeCard.querySelector(".episode-season").textContent = `${episodeCode}`;
-  episodeCard.querySelector(".episode-number").remove(); // remove extra line if you're not using it
+  //the below code is to set the episode code in the class "episode-season"
+  //and remove the episode number line since it's not going to be used
 
+  episodeCard.querySelector(".episode-season").textContent = `${episodeCode}`;
+  episodeCard.querySelector(".episode-number").remove(); // remove extra line since it's not going to be used
+
+  //the below code is to set the episode summary
   episodeCard.querySelector(".episode-summary").innerHTML = episode.summary;
 
+  //the below code is to set the episode image
+  //if no image is available, it will use a placeholder image
   const img = episodeCard.querySelector(".episode-image");
   img.src =
     episode.image?.medium || "levels/example-screenshots/placeholder.png";
@@ -70,6 +80,13 @@ function makePageForEpisodes(episode) {
 
   return episodeCard;
 }
+
+// the below code is to get all episodes and append them to the root element
+// it uses the getAllEpisodes function from episodes.js
+// and maps each episode to a card using the makePageForEpisodes function
+// then appends all the cards to the root element
+// this is the main function that runs when the page loads
+// it is called in the window.onload function
 
 function setup() {
   const allEpisodes = getAllEpisodes(); // comes from episodes.js
