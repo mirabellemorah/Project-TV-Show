@@ -11,13 +11,43 @@
 
 <body>
   <div id="root">
+
+    <!--========== Main content area for episode cards ==========-->
+
+    <template>
+      <div class="episode-card">
+
+        <div class="image-wrapper">
+          <img class="episode-image" src="levels/example-screenshots/placeholder.png" alt="Episode image" />
+        </div>
+
+        <div class="details-wrapper">
+          <h2 class="episode-title">Title</h2>
+          <p class="episode-season">Season: </p>
+          <p class="episode-number">Episode: </p>
+          <p class="episode-summary">Summary: </p>
+        </div>
+
+      </div>
+    </template>
+
   </div>
+
+  <!--========== Footer ==========-->
+
+  <footer>
+    <p>Episode data provided by <a href="https://www.tvmaze.com" target="_blank">TVMaze.com</a></p>
+
+  </footer>
+
+  <!--========== JAVASCRIPT STUFF ==========-->
 
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
   <script src="episodes.js"></script>
 
   <!-- Loads YOUR javascript code -->
   <script src="script.js"></script>
+
 </body>
 
 </html>
