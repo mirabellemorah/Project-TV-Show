@@ -8,11 +8,13 @@ body {
 
 .top-bar {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
   align-items: center;
   padding: 2em;
   margin-left: 30px;
   color: #fff;
+  font-size: 13px;
 }
 
 .search-container {
