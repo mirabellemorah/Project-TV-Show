@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TV Show Project | Mirabelle Morah (mirabellemorah)</title>
+    <link href="style.css" rel="stylesheet" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+
+    <div class="top-bar">
+
+        <select id="show-select">
+            <option value="">Loading shows...</option>
+        </select>
+
+        <div id="search-container">
+            <input type="text" id="search-box" placeholder="Search for episodes..." />
+            <select id="episode-select">
+                <option value="all">Show all episodes</option>
+            </select>
+            <span id="match-count"></span>
+        </div>
+
+    </div>
+
+    <div id="root">
+
+        <!--========== Main content area for episode cards ==========-->
+
+        <template>
+            <div class="episode-card">
+
+                <div class="image-wrapper">
+                    <img class="episode-image" src="levels/example-screenshots/placeholder.png" alt="Episode image" />
+                </div>
+
+                <div class="details-wrapper">
+                    <h2 class="episode-title">Title</h2>
+                    <p class="episode-season">Season: </p>
+                    <p class="episode-number">Episode: </p>
+                    <p class="episode-summary">Summary: </p>
+                </div>
+
+            </div>
+        </template>
+
+    </div>
+
+    <!--========== Footer ==========-->
+
+    <footer>
+        <p>Episode data provided by <a href="https://www.tvmaze.com" target="_blank">TVMaze.com</a></p>
+
+    </footer>
+
+    <!--========== JAVASCRIPT STUFF ==========-->
+
+    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+    <script src="episodes.js"></script>
+
+    <!-- Loads YOUR javascript code -->
+    <!-- <script src="script.js"></script> -->
+    <!-- <script src="script300.js"></script> -->
+    <script src="script400.js"></script>
+
+</body>
+
+</html>
