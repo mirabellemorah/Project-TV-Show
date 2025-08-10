@@ -81,17 +81,69 @@ function makePageForEpisodes(episode) {
   return episodeCard;
 }
 
-// the below code is to get all episodes and append them to the root element
-// it uses the getAllEpisodes function from episodes.js
-// and maps each episode to a card using the makePageForEpisodes function
-// then appends all the cards to the root element
-// this is the main function that runs when the page loads
-// it is called in the window.onload function
+// Helper to render a list of episodes and update match count
+function renderEpisodes(episodes, totalCount) {
+  const root = document.getElementById("root");
+  // Remove all children except the template
+  Array.from(root.children).forEach((child) => {
+    if (child.tagName !== "TEMPLATE") root.removeChild(child);
+  });
+  const episodeCards = episodes.map(makePageForEpisodes);
+  root.append(...episodeCards);
+
+  // Update match count in the format "Showing 10/73 episodes"
+  document.getElementById(
+    "match-count"
+  ).textContent = `Showing ${episodes.length}/${totalCount} episode(s)`;
+}
+
+function populateEpisodeSelect(episodes) {
+  const select = document.getElementById("episode-select");
+  // Remove all except the first option
+  select.length = 1;
+  episodes.forEach((ep, idx) => {
+    const paddedSeason = String(ep.season).padStart(2, "0");
+    const paddedEpisode = String(ep.number).padStart(2, "0");
+    const code = `S${paddedSeason}E${paddedEpisode}`;
+    const option = document.createElement("option");
+    option.value = idx; // index in the episodes array
+    option.textContent = `${code} - ${ep.name}`;
+    select.appendChild(option);
+  });
+}
 
 function setup() {
-  const allEpisodes = getAllEpisodes(); // comes from episodes.js
-  const episodeCards = allEpisodes.map(makePageForEpisodes);
-  document.getElementById("root").append(...episodeCards);
+  const allEpisodes = getAllEpisodes();
+  renderEpisodes(allEpisodes, allEpisodes.length);
+  populateEpisodeSelect(allEpisodes);
+
+  const searchBox = document.getElementById("search-box");
+  const episodeSelect = document.getElementById("episode-select");
+
+  searchBox.addEventListener("input", function () {
+    episodeSelect.value = "all"; // Reset select when searching
+    const searchTerm = searchBox.value.trim().toLowerCase();
+    if (searchTerm === "") {
+      renderEpisodes(allEpisodes, allEpisodes.length);
+    } else {
+      const filtered = allEpisodes.filter(
+        (ep) =>
+          ep.name.toLowerCase().includes(searchTerm) ||
+          (ep.summary && ep.summary.toLowerCase().includes(searchTerm))
+      );
+      renderEpisodes(filtered, allEpisodes.length);
+    }
+  });
+
+  episodeSelect.addEventListener("change", function () {
+    searchBox.value = ""; // Reset search when selecting
+    if (episodeSelect.value === "all") {
+      renderEpisodes(allEpisodes, allEpisodes.length);
+    } else {
+      const idx = Number(episodeSelect.value);
+      renderEpisodes([allEpisodes[idx]], allEpisodes.length);
+    }
+  });
 }
 
 window.onload = setup;
