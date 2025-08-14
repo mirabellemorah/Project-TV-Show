@@ -48,22 +48,18 @@ function showMessage(msg, isError = false) {
 // Renders a list of episodes and updates the match count display
 function renderEpisodes(displayedEpisodes, allEpisodes) {
   const root = document.getElementById("root");
-  // Remove all children except the template
   Array.from(root.children).forEach((child) => {
     if (child.tagName !== "TEMPLATE") root.removeChild(child);
   });
 
-  // Create and append episode cards for each episode in displayedEpisodes
   const episodeCards = displayedEpisodes.map(makePageForEpisodes);
   root.append(...episodeCards);
 
-  // Show how many episodes are displayed out of the total
   document.getElementById(
     "epMatchCount"
   ).textContent = `${displayedEpisodes.length} / ${allEpisodes.length} episode(s) found`;
-
-  // Always repopulate dropdown with *all* episodes
-  populateEpisodeSelect(allEpisodes);
+  // REMOVE THIS LINE:
+  // populateEpisodeSelect(allEpisodes);
 }
 
 // Sets up search box to filter episodes by name or summary (case-insensitive)
@@ -138,6 +134,7 @@ function setup() {
     .then((allEpisodes) => {
       // Render all episodes and set up search/filter logic
       renderEpisodes(allEpisodes, allEpisodes);
+      populateEpisodeSelect(allEpisodes); // Only call ONCE here
       filterEpisodes(allEpisodes);
     })
     .catch(() => {
