@@ -92,6 +92,117 @@ function setup() {
   const allEpisodes = getAllEpisodes(); // comes from episodes.js
   const episodeCards = allEpisodes.map(makePageForEpisodes);
   document.getElementById("root").append(...episodeCards);
+  filterEpisodes();
+  episodeSelect();
 }
 
+//Adding the search and filter functionality
+// This function filters the episodes based on the search input
+// It listens for input changes in the search bar and shows/hides episodes accordingly
+// It also updates the count of matching episodes
+
+function filterEpisodes() {
+  // Get the search input and episode cards
+  const searchInput = document.getElementById("search-bar");
+  const episodeCards = document.querySelectorAll(".episode-card");
+
+  // Show total episodes on initial load
+  document.getElementById(
+    "epMatchCount"
+  ).textContent = `${episodeCards.length} episode(s) found`;
+
+  // Add an event listener to the search input
+  // This will filter the episodes based on the search input
+  // It will show episodes that match the search criteria and hide those that don't
+  searchInput.addEventListener("input", () => {
+    //Reset the select dropdown to "All episodes" when searching
+    const select = document.getElementById("selector");
+    select.value = "all-episodes";
+
+    // Get the input value and convert it to lowercase for case-insensitive comparison
+    const inputValue = searchInput.value.toLowerCase();
+    let matchCount = 0;
+
+    episodeCards.forEach((card) => {
+      const title = card
+        .querySelector(".episode-title")
+        .textContent.toLowerCase();
+      const summary = card
+        .querySelector(".episode-summary")
+        .textContent.toLowerCase();
+
+      // Check if the input value matches the title or summary
+      // If it matches, show the card; otherwise, hide it
+      if (
+        inputValue === "" ||
+        title.includes(inputValue) ||
+        summary.includes(inputValue)
+      ) {
+        card.style.display = "block";
+        matchCount++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    // Update the count of matching episodes
+    // This will show how many episodes match the search criteria
+    document.getElementById(
+      "epMatchCount"
+    ).textContent = `${matchCount} / ${episodeCards.length} episode(s) found`;
+  });
+}
+
+function episodeSelect() {
+  const select = document.getElementById("selector");
+  const episodeCards = document.querySelectorAll(".episode-card");
+
+  // Clear previous options
+  select.innerHTML = "";
+
+  // Add "All episodes" option
+  const allOption = document.createElement("option");
+  allOption.value = "all-episodes";
+  allOption.textContent = "All episodes";
+  select.appendChild(allOption);
+
+  // Populate the select dropdown with episode options
+  episodeCards.forEach((card) => {
+    const option = document.createElement("option");
+    option.value = card.querySelector(".episode-season").textContent;
+    const epTitle = card.querySelector(".episode-title").textContent;
+    option.textContent = `${option.value} - ${epTitle}`;
+    select.appendChild(option);
+  });
+
+  // Handle selection
+
+  select.addEventListener("change", () => {
+    // Reset the search input when changing the selection
+    const searchInput = document.getElementById("search-bar");
+    searchInput.value = "";
+
+    // Show or hide episode cards based on the selected value
+    const selectedValue = select.value;
+    if (selectedValue === "all-episodes") {
+      episodeCards.forEach((card) => (card.style.display = "block"));
+
+      // Update the count of matching episodes to show all
+      document.getElementById(
+        "epMatchCount"
+      ).textContent = `${episodeCards.length} episode(s) found`;
+    } else {
+      episodeCards.forEach((card) => {
+        const code = card.querySelector(".episode-season").textContent;
+        card.style.display = code === selectedValue ? "block" : "none";
+
+        // Update the count of matching episodes based on the selection
+        document.getElementById("epMatchCount").textContent = `${
+          document.querySelectorAll(".episode-card[style='display: block;']")
+            .length
+        } episode(s) found`;
+      });
+    }
+  });
+}
 window.onload = setup;
