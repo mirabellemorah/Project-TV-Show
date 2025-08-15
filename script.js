@@ -1,6 +1,35 @@
+// Creates a DOM element for a single show using the HTML template
+function makePageForShow(show) {
+  const template = document.querySelector("#show-template"); // Use a different template for shows
+  const showCard = template.content.cloneNode(true);
+
+  showCard.querySelector("#show-title").textContent = show.name;
+  showCard.querySelector("#show-summary").innerHTML = show.summary;
+  const img = showCard.querySelector("#show-image");
+  img.src = show.image?.medium || "levels/example-screenshots/placeholder.png";
+  img.alt = show.name;
+
+  return showCard;
+}
+
+// Renders a list of shows and updates the match count display
+function renderShows(displayedShows, allShows) {
+  const root = document.getElementById("root");
+  Array.from(root.children).forEach((child) => {
+    if (child.tagName !== "TEMPLATE") root.removeChild(child);
+  });
+
+  const showCards = displayedShows.map(makePageForShow);
+  root.append(...showCards);
+
+  document.getElementById(
+    "epMatchCount"
+  ).textContent = `${displayedShows.length} / ${allShows.length} show(s) found`;
+}
+
 // Creates a DOM element for a single episode using the HTML template
 function makePageForEpisodes(episode) {
-  const template = document.querySelector("template");
+  const template = document.querySelector("#episode-template");
   const episodeCard = template.content.cloneNode(true);
 
   // Set episode title
@@ -80,7 +109,7 @@ function filterEpisodes(allEpisodes) {
 
 // Populates the episode select dropdown with all episodes
 function populateEpisodeSelect(allEpisodes) {
-  const select = document.getElementById("selector");
+  const select = document.getElementById("episode-selector");
   select.innerHTML = "";
 
   // Add "All episodes" option at the top
@@ -122,9 +151,67 @@ function populateEpisodeSelect(allEpisodes) {
   };
 }
 
+function populateShowSelect(allShows) {
+  const selectElem = document.getElementById("show-selector");
+  selectElem.innerHTML = "";
+
+  // Add "All Shows" option at the top
+  const allOption = document.createElement("option");
+  allOption.value = "all-shows";
+  allOption.textContent = "All shows";
+  selectElem.appendChild(allOption);
+
+  // Add each show as an option in the dropdown
+  // Sort all shows in alphabetical order, case-insensitive
+  allShows
+    .slice()
+    .sort((a, b) => a.name.localeCompare(b.name.toLowerCase()))
+    .forEach((show) => {
+      const option = document.createElement("option");
+      option.value = show.name; // Use show name as value
+      option.textContent = show.name;
+      selectElem.appendChild(option);
+    });
+
+  // When dropdown changes, show either all episodes or just the selected one
+  selectElem.onchange = () => {
+    const selectedValue = selectElem.value;
+    const searchInput = document.getElementById("search-bar");
+    searchInput.value = "";
+
+    if (selectedValue === "all-shows") {
+      // Show all episodes
+      renderShows(allShows, allShows);
+    } else {
+      // Show only the selected show
+      const selectedShow = allShows.find((show) => show.name === selectedValue);
+      console.log("Selected show:", selectedShow);
+      const showURL = selectedShow.url;
+      const newURL = showURL.replace(/\/[^/]+$/, "/episodes");
+      let url = new URL(newURL);
+      url.hostname = "api.tvmaze.com";
+      console.log("Selected show URL:", url);
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.json();
+        })
+        .then((showData) => {
+          renderEpisodes(showData, showData);
+          populateEpisodeSelect(showData);
+          filterEpisodes(showData);
+        })
+        .catch((err) => {
+          console.error("Fetch error:", err);
+          showMessage("Failed to load TV show. Please try again later.", true);
+        });
+    }
+  };
+}
+
 // Main setup function: fetches episode data, sets up UI and event listeners
 function setup() {
-  showMessage("Loading episodes...");
+  /*  showMessage("Loading episodes...");
   // Fetch episode data from TVMaze API (only once per visit)
   fetch("https://api.tvmaze.com/shows/82/episodes")
     .then((response) => {
@@ -140,6 +227,22 @@ function setup() {
     .catch(() => {
       // Show an error message in the DOM if fetching fails
       showMessage("Failed to load episodes. Please try again later.", true);
+    });*/
+  showMessage("Loading TV Shows...");
+  fetch("https://api.tvmaze.com/shows")
+    .then((response) => {
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.json();
+    })
+    .then((allShows) => {
+      // Render all shows and set up search/filter logic
+      renderShows(allShows, allShows);
+      populateShowSelect(allShows);
+    })
+    .catch((err) => {
+      // Show an error message in the DOM if fetching fails
+      console.error("Fetch error:", err);
+      showMessage("Failed to load TV shows. Please try again later.", true);
     });
 }
 
