@@ -1,11 +1,11 @@
 // Creates a DOM element for a single show using the HTML template
 function makePageForShow(show) {
-  const template = document.querySelector("#show-template"); // Use a different template for shows
+  const template = document.querySelector("template"); // Using a same template for shows
   const showCard = template.content.cloneNode(true);
 
-  showCard.querySelector("#show-title").textContent = show.name;
-  showCard.querySelector("#show-summary").innerHTML = show.summary;
-  const img = showCard.querySelector("#show-image");
+  showCard.querySelector(".episode-title").textContent = show.name;
+  showCard.querySelector(".episode-summary").innerHTML = show.summary;
+  const img = showCard.querySelector(".episode-image");
   img.src = show.image?.medium || "levels/example-screenshots/placeholder.png";
   img.alt = show.name;
 
@@ -29,7 +29,7 @@ function renderShows(displayedShows, allShows) {
 
 // Creates a DOM element for a single episode using the HTML template
 function makePageForEpisodes(episode) {
-  const template = document.querySelector("#episode-template");
+  const template = document.querySelector("template");
   const episodeCard = template.content.cloneNode(true);
 
   // Set episode title
