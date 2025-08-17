@@ -75,7 +75,7 @@ a {
 }
 
 .show-card:hover {
-  box-shadow: #9bc897c4 20px 20px;
+  box-shadow: #aca3ff9a 20px 20px;
   transform: translate(-10px, -10px);
 }
 
@@ -100,7 +100,7 @@ a {
 
 .show-title {
   margin: 0 0 10px 0;
-  color: #00d916;
+  color: #493AD4;
   font-size: 1.3em;
   font-weight: bold;
 }
