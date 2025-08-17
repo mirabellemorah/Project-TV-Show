@@ -1,45 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Mirabelle Morah (mirabellemorah)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <div id="shows-listing">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Mirabelle Morah (mirabellemorah)</title>
+  <meta name="description"
+    content="Browse TV shows and episodes powered by the TVMaze API. Built by Mirabelle Morah (mirabellemorah)." />
+
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <header>
+    <h1 class="visually-hidden">TV Show Project</h1>
+  </header>
+
+  <main>
+    <!-- Shows listing -->
+    <section id="shows-listing" aria-label="TV Shows">
       <div id="shows-search-container">
+        <label for="show-search-box" class="visually-hidden">Search Shows</label>
         <input type="text" id="show-search-box" placeholder="Search shows..." />
+
+        <label for="show-selector" class="visually-hidden">Select a Show</label>
         <select id="show-selector"></select>
-        <span id="showMatchCount"></span>
+
+        <span id="showMatchCount" aria-live="polite"></span>
       </div>
-    </div>
+    </section>
 
-    <div id="nav-bar" style="display: none">
+    <!-- Navigation -->
+    <nav id="nav-bar" style="display: none" aria-label="Navigation">
       <a href="#" id="back-to-shows">← Back to Shows</a>
-      <a href="#" id="back-to-episodes" style="display: none"
-        >← Back to Episodes</a
-      >
-    </div>
+      <a href="#" id="back-to-episodes" style="display: none">← Back to Episodes</a>
+    </nav>
 
-    <div id="episodes-view" style="display: none">
+    <!-- Episodes view -->
+    <section id="episodes-view" style="display: none" aria-label="Episodes">
       <div id="search-container">
+        <label for="episode-selector" class="visually-hidden">Select Episode</label>
         <select id="episode-selector"></select>
+
+        <label for="search-bar" class="visually-hidden">Search Episodes</label>
         <input type="text" id="search-bar" placeholder="Episode Search..." />
-        <span id="epMatchCount"></span>
+
+        <span id="epMatchCount" aria-live="polite"></span>
       </div>
 
       <div id="root">
         <template id="template">
-          <div class="episode-card">
+          <article class="episode-card">
             <div class="image-wrapper">
-              <img
-                class="episode-image"
-                src="levels/example-screenshots/placeholder.png"
-                alt="Episode image"
-              />
+              <img class="episode-image" src="levels/example-screenshots/placeholder.png"
+                alt="Episode image placeholder" loading="lazy" />
             </div>
 
             <div class="details-wrapper">
@@ -48,18 +63,20 @@
               <p class="episode-number">Episode:</p>
               <p class="episode-summary">Summary:</p>
             </div>
-          </div>
+          </article>
         </template>
       </div>
-    </div>
+    </section>
+  </main>
 
-    <footer>
-      <p>
-        Episode data provided by
-        <a href="https://www.tvmaze.com" target="_blank">TVMaze.com</a>
-      </p>
-    </footer>
+  <footer>
+    <p>
+      Episode data provided by
+      <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVMaze.com</a>
+    </p>
+  </footer>
 
-    <script src="script.js"></script>
-  </body>
+  <script src="script.js" defer></script>
+</body>
+
 </html>

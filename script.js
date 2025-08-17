@@ -214,10 +214,22 @@ function renderShowsListing(shows) {
   const searchContainer = document.createElement("div");
   searchContainer.id = "shows-search-container";
 
+  // Create and add label for search box
+  const searchBoxLabel = document.createElement("label");
+  searchBoxLabel.setAttribute("for", "show-search-box");
+  searchBoxLabel.className = "visually-hidden";
+  searchBoxLabel.textContent = "Search Shows";
+
   // Create search box
   const searchBox = document.createElement("input");
   searchBox.id = "show-search-box";
   searchBox.placeholder = "Search shows...";
+
+  // Create and add label for show selector
+  const showSelectorLabel = document.createElement("label");
+  showSelectorLabel.setAttribute("for", "show-selector");
+  showSelectorLabel.className = "visually-hidden";
+  showSelectorLabel.textContent = "Select a Show";
 
   // Create show selector
   const showSelector = document.createElement("select");
@@ -245,8 +257,10 @@ function renderShowsListing(shows) {
   showCount.id = "showMatchCount";
   showCount.textContent = `Showing ${shows.length}/${allShows.length} show(s)`;
 
-  // Add elements to search container
+  // Add elements to search container WITH labels
+  searchContainer.appendChild(searchBoxLabel);
   searchContainer.appendChild(searchBox);
+  searchContainer.appendChild(showSelectorLabel);
   searchContainer.appendChild(showSelector);
   searchContainer.appendChild(showCount);
 
