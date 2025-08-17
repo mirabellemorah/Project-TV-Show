@@ -9,41 +9,49 @@
   </head>
 
   <body>
-    <!--========== Adding search and filter functionality ==========-->
-
-    <div id="search-container">
-      <select id="show-selector"></select>
-      <select id="episode-selector"></select>
-
-      <input type="text" id="search-bar" placeholder="Episode Search..." />
-
-      <span id="epMatchCount"></span>
+    <div id="shows-listing">
+      <div id="shows-search-container">
+        <input type="text" id="show-search-box" placeholder="Search shows..." />
+        <select id="show-selector"></select>
+        <span id="showMatchCount"></span>
+      </div>
     </div>
 
-    <div id="root">
-      <!--========== Main content area for episode cards ==========-->
-
-      <template id="template">
-        <div class="episode-card">
-          <div class="image-wrapper">
-            <img
-              class="episode-image"
-              src="levels/example-screenshots/placeholder.png"
-              alt="Episode image"
-            />
-          </div>
-
-          <div class="details-wrapper">
-            <h2 class="episode-title">Title</h2>
-            <p class="episode-season">Season:</p>
-            <p class="episode-number">Episode:</p>
-            <p class="episode-summary">Summary:</p>
-          </div>
-        </div>
-      </template>
+    <div id="nav-bar" style="display: none">
+      <a href="#" id="back-to-shows">← Back to Shows</a>
+      <a href="#" id="back-to-episodes" style="display: none"
+        >← Back to Episodes</a
+      >
     </div>
 
-    <!--========== Footer ==========-->
+    <div id="episodes-view" style="display: none">
+      <div id="search-container">
+        <select id="episode-selector"></select>
+        <input type="text" id="search-bar" placeholder="Episode Search..." />
+        <span id="epMatchCount"></span>
+      </div>
+
+      <div id="root">
+        <template id="template">
+          <div class="episode-card">
+            <div class="image-wrapper">
+              <img
+                class="episode-image"
+                src="levels/example-screenshots/placeholder.png"
+                alt="Episode image"
+              />
+            </div>
+
+            <div class="details-wrapper">
+              <h2 class="episode-title">Title</h2>
+              <p class="episode-season">Episode Code</p>
+              <p class="episode-number">Episode:</p>
+              <p class="episode-summary">Summary:</p>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
 
     <footer>
       <p>
@@ -52,12 +60,6 @@
       </p>
     </footer>
 
-    <!--========== JAVASCRIPT STUFF ==========-->
-
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <!--<script src="episodes.js"></script>-->
-
-    <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>
 </html>
