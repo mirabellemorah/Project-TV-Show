@@ -6,8 +6,6 @@ let currentShowId = null;
 
 // Creates a DOM element for a single show card
 function createShowCard(show) {
-  console.log("Creating show card for:", show.name, show); // Debug log
-
   const card = document.createElement("div");
   card.className = "show-card";
 
@@ -39,15 +37,6 @@ function createShowCard(show) {
   const summaryText = show.summary
     ? show.summary.replace(/<[^>]*>/g, "")
     : "No summary available";
-
-  console.log("Show details:", {
-    name: show.name,
-    genres: genresText,
-    status: statusText,
-    rating: ratingText,
-    runtime: runtimeText,
-    summary: summaryText.substring(0, 50) + "...",
-  }); // Debug log
 
   details.innerHTML = `
     <h2 class="show-title">${show.name}</h2>
@@ -356,8 +345,6 @@ function fetchAllShows() {
     })
     .then((shows) => {
       allShows = shows;
-      console.log("Fetched shows:", shows.length);
-      console.log("Sample show data:", shows[0]); // Log first show to see data structure
       renderShowsListing(allShows);
     })
     .catch((error) => {
