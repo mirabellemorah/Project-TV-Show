@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 body {
-  background-color: #000;
+  background-color: #000000;
   font-family: "Space Mono", monospace;
-  color: #333;
+  color: #ffffff;
 }
 
 #root {
@@ -12,6 +12,169 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+
+/* Show listing styles */
+#shows-listing {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  margin-top: 150px;
+}
+
+#shows-search-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  padding: 2em;
+  gap: 2em;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: fixed;
+  z-index: 99999;
+  background-color: #000;
+  top: 0;
+}
+
+.shows-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 100%;
+}
+
+.show-card {
+  width: 400px;
+  min-width: 350px;
+  flex: 0 0 auto;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: #000000 0px 15px;
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.9s;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: flex-start;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.show-card:hover {
+  box-shadow: #9bc897c4 20px 20px;
+  transform: translate(-10px, -10px);
+}
+
+.show-card img {
+  width: 120px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid #000;
+  filter: grayscale(100%);
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.9s;
+}
+
+.show-card:hover img {
+  filter: grayscale(0%);
+  transform: translate(-5px, -5px);
+}
+
+.show-card .show-details {
+  flex: 1;
+}
+
+.show-title {
+  margin: 0 0 10px 0;
+  color: #00d916;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.show-card .show-details div {
+  margin: 5px 0;
+  font-size: 0.9em;
+}
+
+.show-card .show-details strong {
+  color: #333;
+}
+
+.show-summary {
+  margin-top: 10px;
+  font-size: 0.8em;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Show search box styles */
+#show-search-box {
+  width: 300px;
+  padding: 12px 16px;
+  border: 3px solid #000;
+  border-radius: 10px;
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  background-color: #fff;
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
+}
+
+#show-search-box:focus {
+  outline: none;
+  box-shadow: #cbd3d4c4 10px 10px;
+  transform: translate(-5px, -5px);
+}
+
+#show-selector,
+#episode-selector {
+  padding: 12px 16px;
+  border: 3px solid #000;
+  border-radius: 10px;
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  width: 300px;
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
+}
+
+#show-selector:focus,
+#episode-selector:focus {
+  outline: none;
+  box-shadow: #cbd3d4c4 10px 10px;
+  transform: translate(-5px, -5px);
+}
+
+#showMatchCount {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+/* Navigation bar styles */
+#nav-bar {
+  padding: 20px;
+  background-color: #000;
+  border-bottom: 3px solid #fff;
+}
+
+#back-to-shows {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
+}
+
+#back-to-shows:hover {
+  color: #cbd3d4;
+  transform: translateX(-5px);
 }
 
 .episode-card {
@@ -64,7 +227,7 @@ body {
 }
 
 .episode-card:hover {
-  box-shadow: #cbd3d4c4 20px 20px;
+  box-shadow: #cdd4cbc4 20px 20px;
   transform: translate(-10px, -10px);
 }
 
@@ -74,9 +237,99 @@ body {
   transform: translate(-10px, -10px);
 }
 
+/* Single episode view styles */
+.single-episode-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+.single-episode-card {
+  width: 60%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: #000000 0px 15px;
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.9s;
+  overflow: hidden;
+}
+
+.single-episode-card:hover {
+  box-shadow: #cbd3d4c4 20px 20px;
+  transform: translate(-10px, -10px);
+}
+
+.single-episode-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-bottom: 3px solid rgb(0, 0, 0);
+  filter: grayscale(100%);
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.9s;
+}
+
+.single-episode-card:hover .single-episode-image {
+  filter: grayscale(0%);
+}
+
+.single-episode-details {
+  padding: 30px;
+}
+
+.single-episode-title {
+  font-size: 2em;
+  margin: 0 0 15px 0;
+  color: #0074d9;
+}
+
+.single-episode-code {
+  font-size: 1.2em;
+  margin: 10px 0;
+  color: #333;
+}
+
+.single-episode-summary {
+  font-size: 1em;
+  color: #666;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+/* Back to episodes navigation */
+#back-to-episodes {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
+  margin-left: 20px;
+}
+
+#back-to-episodes:hover {
+  color: #cbd3d4;
+  transform: translateX(-5px);
+}
+
 @media screen and (max-width: 787px) {
   .episode-card {
     width: 70%;
+  }
+
+  .show-card {
+    width: 350px;
+    min-width: 300px;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .show-card img {
+    width: 120px;
+    height: 160px;
   }
 }
 
@@ -93,6 +346,22 @@ body {
   .episode-summary {
     font-size: 0.6em;
     color: #666;
+  }
+
+  .show-card {
+    width: 300px;
+    min-width: 280px;
+    padding: 15px;
+    flex-direction: row;
+  }
+
+  .show-card img {
+    width: 100px;
+    height: 140px;
+  }
+
+  .show-title {
+    font-size: 1.1em;
   }
 }
 
@@ -125,6 +394,5 @@ body {
 
 #epMatchCount {
   font-size: 16px;
-  color: #333;
   margin-left: 10px;
 }
