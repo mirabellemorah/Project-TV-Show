@@ -6,6 +6,8 @@ let currentShowId = null;
 
 // Creates a DOM element for a single show card
 function createShowCard(show) {
+  console.log("Creating show card for:", show.name, show); // Debug log
+
   const card = document.createElement("div");
   card.className = "show-card";
 
@@ -18,13 +20,42 @@ function createShowCard(show) {
   // Show details
   const details = document.createElement("div");
   details.className = "show-details";
+
+  // Handle genres - some shows might not have genres
+  const genresText =
+    show.genres && show.genres.length > 0 ? show.genres.join(", ") : "N/A";
+
+  // Handle rating - some shows might not have rating
+  const ratingText =
+    show.rating && show.rating.average ? show.rating.average : "N/A";
+
+  // Handle runtime - some shows might not have runtime
+  const runtimeText = show.runtime ? `${show.runtime} min` : "N/A";
+
+  // Handle status - some shows might not have status
+  const statusText = show.status || "N/A";
+
+  // Handle summary - remove HTML tags for cleaner display
+  const summaryText = show.summary
+    ? show.summary.replace(/<[^>]*>/g, "")
+    : "No summary available";
+
+  console.log("Show details:", {
+    name: show.name,
+    genres: genresText,
+    status: statusText,
+    rating: ratingText,
+    runtime: runtimeText,
+    summary: summaryText.substring(0, 50) + "...",
+  }); // Debug log
+
   details.innerHTML = `
     <h2 class="show-title">${show.name}</h2>
-    <div><strong>Genres:</strong> ${show.genres.join(", ")}</div>
-    <div><strong>Status:</strong> ${show.status}</div>
-    <div><strong>Rating:</strong> ${show.rating?.average ?? "N/A"}</div>
-    <div><strong>Runtime:</strong> ${show.runtime ?? "N/A"} min</div>
-    <div class="show-summary">${show.summary ?? ""}</div>
+    <div><strong>Genres:</strong> ${genresText}</div>
+    <div><strong>Status:</strong> ${statusText}</div>
+    <div><strong>Rating:</strong> ${ratingText}</div>
+    <div><strong>Runtime:</strong> ${runtimeText}</div>
+    <div class="show-summary">${summaryText}</div>
   `;
   card.appendChild(details);
 
@@ -325,9 +356,12 @@ function fetchAllShows() {
     })
     .then((shows) => {
       allShows = shows;
+      console.log("Fetched shows:", shows.length);
+      console.log("Sample show data:", shows[0]); // Log first show to see data structure
       renderShowsListing(allShows);
     })
-    .catch(() => {
+    .catch((error) => {
+      console.error("Error fetching shows:", error);
       showMessage("Failed to load shows. Please try again later.", true);
     });
 }

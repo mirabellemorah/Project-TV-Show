@@ -6,6 +6,13 @@ body {
   color: #ffffff;
 }
 
+a {
+  color: #00d916;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
 #root {
   padding: 20px;
   display: flex;
@@ -101,10 +108,12 @@ body {
 .show-card .show-details div {
   margin: 5px 0;
   font-size: 0.9em;
+  color: #333;
 }
 
 .show-card .show-details strong {
-  color: #333;
+  color: #000;
+  font-weight: bold;
 }
 
 .show-summary {
@@ -213,11 +222,13 @@ body {
 
 .episode-title {
   font-size: 1.5em;
+  color: #666;
   margin: 0;
 }
 
 .episode-season,
 .episode-number {
+  color: #666;
   margin: 4px 0;
 }
 
@@ -243,13 +254,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
   padding: 20px;
+  height: 90%;
 }
 
 .single-episode-card {
-  width: 60%;
-  max-width: 600px;
+  width: 40%;
   background-color: #fff;
   border-radius: 20px;
   border: 3px solid rgb(0, 0, 0);
@@ -283,7 +293,7 @@ body {
 .single-episode-title {
   font-size: 2em;
   margin: 0 0 15px 0;
-  color: #0074d9;
+  color: #000000;
 }
 
 .single-episode-code {
@@ -340,6 +350,7 @@ body {
 
   .episode-title {
     font-size: 1em;
+    color: #666;
     margin: 0;
   }
 
