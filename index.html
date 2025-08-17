@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TV Show Project | Mirabelle Morah (mirabellemorah)</title>
+    <link href="style.css" rel="stylesheet" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TV Show Project | Mirabelle Morah (mirabellemorah)</title>
-  <link href="style.css" rel="stylesheet" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-</head>
+  <body>
+    <!--========== Adding search and filter functionality ==========-->
 
-<body>
+    <div id="search-container">
+      <select id="show-selector"></select>
+      <select id="episode-selector"></select>
 
-  <!--========== Adding search and filter functionality ==========-->
+      <input type="text" id="search-bar" placeholder="Episode Search..." />
 
-  <div id="search-container">
-    <select id="selector"></select>
+      <span id="epMatchCount"></span>
+    </div>
 
-    <input type="text" id="search-bar" placeholder="Episode Search..." />
+    <div id="root">
+      <!--========== Main content area for episode cards ==========-->
 
-    <span id="epMatchCount"></span>
-  </div>
+      <template id="template">
+        <div class="episode-card">
+          <div class="image-wrapper">
+            <img
+              class="episode-image"
+              src="levels/example-screenshots/placeholder.png"
+              alt="Episode image"
+            />
+          </div>
 
-  <div id="root">
-    <!--========== Main content area for episode cards ==========-->
-
-    <template>
-      <div class="episode-card">
-        <div class="image-wrapper">
-          <img class="episode-image" src="levels/example-screenshots/placeholder.png" alt="Episode image" />
+          <div class="details-wrapper">
+            <h2 class="episode-title">Title</h2>
+            <p class="episode-season">Season:</p>
+            <p class="episode-number">Episode:</p>
+            <p class="episode-summary">Summary:</p>
+          </div>
         </div>
+      </template>
+    </div>
 
-        <div class="details-wrapper">
-          <h2 class="episode-title">Title</h2>
-          <p class="episode-season">Season:</p>
-          <p class="episode-number">Episode:</p>
-          <p class="episode-summary">Summary:</p>
-        </div>
-      </div>
-    </template>
-  </div>
+    <!--========== Footer ==========-->
 
-  <!--========== Footer ==========-->
+    <footer>
+      <p>
+        Episode data provided by
+        <a href="https://www.tvmaze.com" target="_blank">TVMaze.com</a>
+      </p>
+    </footer>
 
-  <footer>
-    <p>
-      Episode data provided by
-      <a href="https://www.tvmaze.com" target="_blank">TVMaze.com</a>
-    </p>
-  </footer>
+    <!--========== JAVASCRIPT STUFF ==========-->
 
-  <!--========== JAVASCRIPT STUFF ==========-->
+    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+    <!--<script src="episodes.js"></script>-->
 
-  <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-  <script src="episodes.js"></script>
-
-  <!-- Loads YOUR javascript code -->
-  <script src="script.js"></script>
-</body>
-
+    <!-- Loads YOUR javascript code -->
+    <script src="script.js"></script>
+  </body>
 </html>
